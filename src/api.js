@@ -90,9 +90,13 @@ export const getBooks = async ({ auth }) => {
   }
 };
 
-export const updateBook = async (bookId, newData) => {
+export const updateBook = async (bookId, newData, {auth}) => {
   try {
-    const response = await axios.put(`${URL}/books/${bookId}`, newData);
+    const response = await axios.put(`${URL}/books/${bookId}/update/`, newData, {
+        headers: {
+            Authorization: `Bearer ${auth.accessToken}`
+        }
+    })
     console.log("updated book: ", response);
     return response.data;
   } catch (error) {
@@ -103,7 +107,7 @@ export const updateBook = async (bookId, newData) => {
 
 export const deleteBook = async (bookId, {auth}) => {
   try {
-    const response = await axios.delete(`${URL}/books/${bookId}`, {
+    const response = await axios.delete(`${URL}/books/${bookId}delete/`, {
         headers: {
             Authorization: `Bearer ${auth.accessToken}`
         }

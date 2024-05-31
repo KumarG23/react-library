@@ -6,7 +6,6 @@ import {
   updateBook as apiUpdateBook,
   deleteBook as apiDeleteBook,
   fetchUser as apiFetchUser,
-  updateBook,
 } from "./api";
 
 export const Profile = () => {
@@ -16,6 +15,7 @@ export const Profile = () => {
     author: "",
     genre: "",
   });
+  const [editingBook, setEditingBook] = useState(null);
   const [firstName, setFirstName] = useState("");
   const accessToken = localStorage.getItem("accessToken");
 
@@ -51,20 +51,28 @@ export const Profile = () => {
     }
   };
 
-  const handleUpdateBook = async (bookId, newData) => {
+  const handleUpdateBook = async (bookId) => {
     try {
-      await apiUpdateBook(bookId, newData, { auth: { accessToken } });
+      await apiUpdateBook(bookId, newBook, { auth: { accessToken } });
       await handleGetBooks();
+      setNewBook({ title: '', author: '', genre: ''});
+      setEditingBook(null);
     } catch (error) {
       console.error("Error updating book: ", error);
     }
   };
+
+  const handleEditBook = (book) => {
+    setNewBook({ title: book.title, author: book.author, genre: book.genre });
+    setEditingBook(book.id);
+  }
 
   const handleDeleteBook = async (bookId) => {
     console.log('Book Id front: ', bookId)
     try {
       await apiDeleteBook(bookId, { auth: { accessToken } });
       await handleGetBooks();
+      setNewBook({ title: "", author: "", genre: "" });
     } catch (error) {
       console.error("Error deleting book: ", error);
     }
@@ -86,7 +94,7 @@ export const Profile = () => {
     <div className="container">
       <h1 className="header">{firstName}'s Book Collection</h1>
       <div className="form-group">
-        <h2>Add New Book</h2>
+        <h2>{editingBook ? 'Edit Book' : 'Add New Book'}</h2>
         <input
           type="text"
           placeholder="Title"
@@ -109,7 +117,10 @@ export const Profile = () => {
           onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })}
         />
         <div className="button-group">
-          <button onClick={handleCreateBook}>Add Book</button>
+            {editingBook ? (
+                <button onClick={() => handleUpdateBook(editingBook)}>Update Book</button>
+            ) :
+          (<button onClick={handleCreateBook}>Add Book</button>)}
         </div>
       </div>
       <h2>Your Books</h2>
@@ -120,6 +131,7 @@ export const Profile = () => {
               {book.title} - {book.author} - {book.genre}
             </div>
             <div className="book-actions">
+                <button onClick={() => handleEditBook(book)}>Edit</button>
               <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
             </div>
           </li>
