@@ -1,0 +1,141 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  /* background-image: url('./assets/hogwarts.jpeg'); */
+  background-image: url('./assets/library.webp');
+  background-size: cover; /* or contain, depending on your preference */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* makes the background image fixed when scrolling */
+  background-position: center center;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#page-content {
+  flex-grow: 2;
+}
+
+#login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+}
+
+#navbar {
+  background-color: #3d9198;
+}
+
+#profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#library {
+  color: #545665;
+}
+
+#navitem {
+  color: #545665
+}
+
+#navitem:hover{
+  color: black;
+  transform: translateY(-5px);
+}
+
+#btn {
+  background-color: #3d9198;
+  color: #545665;
+}
+
+#btn:hover {
+  background-color: #545665;
+  color: #3d9198;
+}
+
+#sign {
+  color: #545665;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  margin-bottom: 10px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  flex: 1; /* Make buttons grow and shrink equally */
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+.books-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.book-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.book-details {
+  flex-grow: 1;
+}
+
+.book-actions {
+  display: flex;
+  gap: 10px;
+}
